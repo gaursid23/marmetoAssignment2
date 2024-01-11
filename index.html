@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @media (max-width:768px){
+            .category_data{
+                display:flex;
+                flex-direction:column;
+                margin:auto;
+
+            }
+
+            .ecomm_title{
+                display:flex; 
+                flex-direction:row;
+                justify-content: space-between; 
+                margin:auto;
+            }
+
+            .ecomm_detail{
+                display:flex; 
+                flex-direction:row;
+                justify-content: space-between;
+                margin:auto;
+            }
+
+            .cartButton{
+                color:white;
+                background-color:black;
+                width:85vw;
+                padding:10px;
+                border-color: transparent;
+                border-radius: 5px;
+            }
+
+            .tab_button{
+                margin-right:-20px;
+                border-width:0;
+
+                width:100px;
+                padding:10px;
+            }
+
+            .tab_buttonMen{
+                color:white;
+                background-color:black;
+                border-color: transparent;
+                border-radius: 5px;
+                width:100px;
+                padding:10px;
+                margin-right:-20px;
+                border-width:0;
+
+            }
+
+            .tab_button:hover {
+                color:white;
+                background-color:black;
+                border-color: transparent;
+                border-radius: 5px;
+                border-width:0;
+
+            }
+
+            .img_prop{
+                width:85vw;
+                height:90vh;
+            }
+
+            .badgeText{
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                background-color: rgba(255, 255, 255, 0.7);
+                padding: 5px;
+                border-radius:5px;
+            }
+        }
+
+        @media (min-width:768px) and (max-width:1024px){
+            .category_data{
+                display:flex;
+                flex-direction:row;
+                overflow-x: visible;
+                margin:auto;
+
+            
+            }
+
+            .ecomm_title{
+                display:flex; 
+                flex-direction:row;
+                justify-content: space-between; 
+                margin:auto;
+            }
+
+            .ecomm_detail{
+                display:flex; 
+                flex-direction:row;
+                justify-content: space-between;
+                margin:auto;
+            }
+
+            .cartButton{
+                color:white;
+                background-color:black;
+                width:45vw;
+                padding:10px;
+                border-color: transparent;
+                border-radius: 5px;
+            }
+
+            .tab_button{
+                margin-right:-20px;
+                border-width:0;
+
+                width:150px;
+                padding:10px;
+            }
+
+            .tab_buttonMen{
+                color:white;
+                background-color:black;
+                border-color: transparent;
+                border-radius: 5px;
+                width:150px;
+                padding:10px;
+                margin-right:-20px;
+                border-width:0;
+
+            }
+
+            .tab_button:hover {
+                color:white;
+                background-color:black;
+                border-color: transparent;
+                border-radius: 5px;
+                border-width:0;
+
+            }
+
+            .img_prop{
+                width:45vw;
+                height:90vh;
+            }
+
+            .badgeText{
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                background-color: rgba(255, 255, 255, 0.7);
+                padding: 5px;
+                border-radius:5px;
+            }
+
+        }
+
+        @media (min-width:1024px){
+                
+            .category_data{
+                display:flex;
+                flex-direction:row;
+                margin:auto;
+            }
+
+            .ecomm_title{
+                display:flex; 
+                flex-direction:row;
+                justify-content: space-between; 
+                margin:auto;
+            }
+
+            .ecomm_detail{
+                display:flex; 
+                flex-direction:row;
+                justify-content: space-between;
+                margin:auto;
+            }
+
+            .cartButton{
+                color:white;
+                background-color:black;
+                width:100%;
+                padding:10px;
+                border-color: transparent;
+                border-radius: 5px;
+            }
+
+            .tab_button{
+                margin-right:-20px;
+                border-width:0;
+
+                width:300px;
+                padding:10px;
+            }
+
+            .tab_buttonMen{
+                color:white;
+                background-color:black;
+                border-color: transparent;
+                border-radius: 5px;
+                width:300px;
+                padding:10px;
+                margin-right:-20px;
+                border-width:0;
+
+            }
+
+            .tab_button:hover {
+                color:white;
+                background-color:black;
+                border-color: transparent;
+                border-radius: 5px;
+                border-width:0;
+
+            }
+
+            .img_prop{
+                width:100%;
+                height:90vh;
+            }
+
+            .badgeText{
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                background-color: rgba(255, 255, 255, 0.7);
+                padding: 5px;
+                border-radius:5px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <h1 style="text-align:center;">SELECT YOUR CHOICE</h1>
+    <div style="text-align:center;">
+        <button onclick="getData(this.id)" id="men" class="tab_buttonMen">Men</button>
+        <button onclick="getData(this.id)" id="women" class="tab_button">Women</button>
+        <button onclick="getData(this.id)" id="kids" class="tab_button">Kids</button>
+    </div>
+    <div id="category_desc" class="category_data">
+        
+
+    </div>
+
+    <script>
+
+        const getPost=async(url,y)=>{
+        const response=await fetch(url);
+        const data=await response.json();
+
+        data.categories.map((curEle,index)=>{
+            if (curEle.category_name == document.getElementById(y).textContent){
+
+                let ecommData = ''; 
+                curEle.category_products.map((curEl,index)=>{
+                    const badgeTextHtml = curEl.badge_text ? `<div class="badgeText">${curEl.badge_text}</div>`: '';
+
+                        let a= parseInt(((curEl.compare_at_price-curEl.price)/(curEl.compare_at_price))*100)
+                        ecommData += `
+                        <div style="padding:20px;">
+                            <div style="position: relative;">
+                                ${badgeTextHtml}
+                                <img src="${curEl.image}" class="img_prop"/>
+                            </div>
+                            <div class="ecomm_title">
+                                <p style="width:60%;">${curEl.title}</p>
+                                <p>${curEl.vendor}</p>
+                            </div>
+                            <div class="ecomm_detail">
+                                <p>Rs.${curEl.price}.00</p>
+                                <p style="text-decoration: line-through;opacity:50%;">${parseInt(curEl.compare_at_price)}</p>
+                                <p style="color:red;">${a}% Off</p>
+                            </div>
+                                <button class="cartButton">Add to Cart</button>
+                        </div>
+                    `;
+
+
+
+                }); 
+
+                document.getElementById('category_desc').innerHTML=ecommData;
+
+
+            }
+
+            
+        })
+        }
+
+        getPost("https://cdn.shopify.com/s/files/1/0564/3685/0790/files/multiProduct.json", 'men');
+
+
+        function getData(x) {
+            if (x=='men'){
+                document.getElementById('men').classList.add('tab_buttonMen');
+                document.getElementById('men').classList.remove('tab_button');
+
+                document.getElementById('women').classList.remove('tab_buttonMen');
+                document.getElementById('women').classList.add('tab_button');
+
+                document.getElementById('kids').classList.remove('tab_buttonMen');
+                document.getElementById('kids').classList.add('tab_button');
+            }else if (x=='women'){
+                document.getElementById('women').classList.add('tab_buttonMen');
+                document.getElementById('women').classList.remove('tab_button');
+
+                document.getElementById('men').classList.remove('tab_buttonMen');
+                document.getElementById('men').classList.add('tab_button');
+
+                document.getElementById('kids').classList.remove('tab_buttonMen');
+                document.getElementById('kids').classList.add('tab_button');
+            }else{
+                document.getElementById('kids').classList.add('tab_buttonMen');
+                document.getElementById('kids').classList.remove('tab_button');
+
+                document.getElementById('men').classList.remove('tab_buttonMen');
+                document.getElementById('men').classList.add('tab_button');
+
+                document.getElementById('women').classList.remove('tab_buttonMen');
+                document.getElementById('women').classList.add('tab_button');
+            }
+            
+
+            getPost("https://cdn.shopify.com/s/files/1/0564/3685/0790/files/multiProduct.json", x);
+        }
+
+
+        
+
+        
+    
+    </script>
+
+</body>
+</html>
